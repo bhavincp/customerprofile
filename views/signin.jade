@@ -11,6 +11,7 @@
         $('#time').text( "--");
         try {
           var inputJSonData = JSON.parse( $('#requestJsonString').val() );
+
           $.ajax({
             type		: 'POST',
             url         : 'signing',
@@ -20,10 +21,16 @@
             async : false,
             cache : false, // 'cache: false' must be present for IE 7 & 8
             success: function(data){
+              console.log(data);
               var end = new Date().getTime();
               var elapsedTime = (end-start)/1000;
               $('#time').text(elapsedTime + " Sec.");
               $('#responseJsonString').html( JSON.stringify(data, null, '\\t') );
+            },
+            error: function (e, ajaxOptions, thrownError) {
+              console.log("Error", + e);
+              alert(e.status);
+              alert(thrownError);
             }
           });
         }

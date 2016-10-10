@@ -5,7 +5,13 @@ router.get('/', function(req, res) {
   res.render('signin', { title: 'Sign In' })
 });
 
-router.get('../signing', function(req, res) {
-  res.render('signin', { response: 'Logged In' })
+router.get('/', function(req, res) {
+  res.redirect('signin', { title: 'Sign In' })
 });
+
+router.post('/', function(req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  res.json({"responseData": "User is Signed In"})
+});
+
 module.exports = router;

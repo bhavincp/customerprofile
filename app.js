@@ -24,6 +24,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users/signin', signin);
+app.use('/users/signing', signin);
 // app.use('/users', users);
 
 
