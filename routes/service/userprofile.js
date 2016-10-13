@@ -3,14 +3,14 @@ var router = express.Router();
 
 var useraccount = require('../models/useraccount');
 
-var login = function(req) {
+login = function(req, res, user_id) {
   try {
     var loginDetails = {
       'loginid' : req.body.username,
       'password': req.body.password
     };
 
-    var userProfile = useraccount.get_userprofile(loginDetails);
+    useraccount.check_user(loginDetails, res);
   }
   catch (err) {
     console.log("Login Error " + err);

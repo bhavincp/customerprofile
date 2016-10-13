@@ -13,8 +13,7 @@ router.get('/', function(req, res) {
 
 router.post('/', function(req, res) {
   res.setHeader('Content-Type', 'application/json');
-  userprofile.login(req);
-  res.json({"responseData": "User is Signed In"})
+  userprofile.login(req, res);
 });
 
 module.exports = router;
