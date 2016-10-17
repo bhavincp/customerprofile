@@ -1,0 +1,68 @@
+#wrapper
+  // Header - Start
+  .header
+    h1= title
+    .blue_line
+    script(type='text/javascript', src='../javascripts/jquery-latest.min.js')
+    script(type='text/javascript').
+      function doSearch() {
+        $('#responseJsonString').html('Please wait, we are fetching data.....');
+        var start = new Date().getTime();
+        $('#time').text( "--");
+        try {
+          var inputJSonData = JSON.parse( $('#requestJsonString').val() );
+
+          $.ajax({
+            type		: 'POST',
+            url         : 'createaccount',
+            contentType : "application/json; charset=utf-8",
+            dataType    : 'json',
+            data: JSON.stringify( inputJSonData ),
+            async : false,
+            cache : false, // 'cache: false' must be present for IE 7 & 8
+            success: function(data){
+              console.log(data);
+              var end = new Date().getTime();
+              var elapsedTime = (end-start)/1000;
+              $('#time').text(elapsedTime + " Sec.");
+              $('#responseJsonString').html( JSON.stringify(data, null, '\\t') );
+            },
+            error: function (e, ajaxOptions, thrownError) {
+              console.log("Error", + e);
+              alert(e.status);
+              alert(thrownError);
+            }
+          });
+        }
+        catch (e) {
+          console.log( e.message );
+          alert(e.message);
+        }
+      }
+  // Header - End
+  .request_section
+    label
+      strong Request JSon String
+    textarea#requestJsonString(rows='15', cols='100')
+      | {
+      |   "username": "bhavincp@gmail.com",
+      |   "password": "bhavin11",
+      |   "first_name": "bhavin",
+      |   "last_name": "patel",
+      |   "phone_no": 1234567890,
+      |   "dob": "01/01/1983"
+      | }
+    .control_buttons
+      input#resetInputsBtn.reset(type='button', alt='Reset', title='Reset', value='Reset')
+      input#searchBtn.calculate(type='button', alt='Search', title='Search', value='Search', onclick='doSearch()')
+  .response_section
+    label
+      strong Response JSon String
+    textarea#responseJsonString(rows='25', cols='134', readonly='readonly')
+    div
+      | Time:
+      span#time
+  // Footer - Start
+  .copyright
+    | Copyright © 1998 - 2013 FlightNetwork® Cheap  Flights. All Rights Reserved.
+  // Footer - End

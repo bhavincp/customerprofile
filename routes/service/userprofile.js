@@ -18,4 +18,20 @@ login = function(req, res, user_id) {
   }
 };
 
+createaccount = function(req, res, user_id) {
+  try {
+    var loginDetails = {
+      'loginid' : req.body.username,
+      'password': req.body.password
+    };
+
+    useraccount.get_userprofile(loginDetails, res);
+  }
+  catch (err) {
+    console.log("Account Creation Error " + err);
+    return undefined;
+  }
+};
+
 module.exports.login = login;
+module.exports.createaccount = createaccount;
