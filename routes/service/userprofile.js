@@ -22,10 +22,17 @@ createaccount = function(req, res, user_id) {
   try {
     var loginDetails = {
       'loginid' : req.body.username,
-      'password': req.body.password
+      'password': req.body.password,
+      'first_name': req.body.first_name,
+      'last_name': req.body.last_name,
+      'phone_no': req.body.phone_no,
+      'dob': req.body.dob,
     };
 
-    useraccount.get_userprofile(loginDetails, res);
+    useraccount.get_userprofile(loginDetails, res, function(err, result){
+      if (err) throw err;
+    });
+
   }
   catch (err) {
     console.log("Account Creation Error " + err);
